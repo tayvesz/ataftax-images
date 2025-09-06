@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Du Big Data à l'IA : Une Révolution Analytique</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: ATAF Green -->
+    <!-- Application Structure Plan: The application is a single-page layout with a fixed sidebar for navigation and a main scrollable content area. This structure allows users to either follow the narrative flow by scrolling or jump to specific topics of interest using the navigation. Key concepts like 'Architecture Evolution' and 'AI Workflow' are presented as interactive diagrams where clicking on a stage dynamically updates a dedicated content panel within the same section. This design groups related information, enhances user engagement by encouraging exploration, and supports both linear and non-linear consumption of the content, making it highly usable. -->
+    <!-- Visualization & Content Choices: 
+        - 5 Vs -> Goal: Inform -> Presentation: Grid of 5 cards with icons -> Interaction: None (static for clarity) -> Justification: Provides a quick, scannable overview of core concepts -> Library/Method: HTML/Tailwind.
+        - Architecture Evolution -> Goal: Show Change/Compare -> Presentation: Horizontal interactive timeline -> Interaction: Click on a stage to display details below -> Justification: Visually represents progression and allows users to explore each stage without losing context -> Library/Method: HTML/Tailwind + JS DOM manipulation.
+        - The Cloud -> Goal: Inform -> Presentation: Two-column comparison layout -> Interaction: None -> Justification: Clear and direct comparison of "before" and "after" -> Library/Method: HTML/Tailwind.
+        - AI Workflow -> Goal: Show Process -> Presentation: Vertical numbered list of interactive steps -> Interaction: Click on a step to see its description -> Justification: Emphasizes the sequential nature of the workflow in a clean format -> Library/Method: HTML/Tailwind + JS DOM manipulation.
+        - Key Challenges -> Goal: Organize/Inform -> Presentation: Grid of interactive cards -> Interaction: Click on a card to display details in a central panel -> Justification: Organizes distinct but related topics and focuses user attention -> Library/Method: HTML/Tailwind + JS DOM manipulation.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'custom-green': '#006738',
+            'light-green': '#e6f0e9',
+            'dark-green': '#004d2a',
+          }
+        }
+      }
+    }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f7f4;
+            color: #333;
+        }
+        .nav-link {
+            transition: all 0.2s ease-in-out;
+        }
+        .nav-link.active, .nav-link:hover {
+            background-color: #e6f0e9;
+            color: #004d2a;
+            transform: translateX(4px);
+        }
+        .interactive-item {
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        .interactive-item:hover, .interactive-item.active {
+            background-color: #e6f0e9;
+            border-color: #006738;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        #content-panel, #workflow-content, #enjeux-content {
+            transition: opacity 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="flex flex-col md:flex-row">
+
+    <nav class="w-full md:w-64 bg-white/80 backdrop-blur-md md:fixed md:h-full p-4 md:p-6 border-b md:border-b-0 md:border-r border-gray-200 z-10">
+        <div class="p-4 bg-custom-green rounded-lg mb-6">
+            <img src="https://ataftax.org/fr/wp-content/uploads/2021/12/Logo.png" alt="Logo ATAF" class="h-12 mx-auto">
+        </div>
+        <h1 class="text-xl font-bold text-dark-green">Navigation</h1>
+        <ul class="mt-6 space-y-2" id="navigation">
+            <li><a href="#intro" class="nav-link block p-2 rounded-lg font-medium text-gray-700">La genèse du Big Data</a></li>
+            <li><a href="#architectures" class="nav-link block p-2 rounded-lg font-medium text-gray-700">Évolution des Architectures</a></li>
+            <li><a href="#cloud" class="nav-link block p-2 rounded-lg font-medium text-gray-700">Le Cloud Catalyseur</a></li>
+            <li><a href="#workflow" class="nav-link block p-2 rounded-lg font-medium text-gray-700">Workflow d'un Projet IA</a></li>
+            <li><a href="#enjeux" class="nav-link block p-2 rounded-lg font-medium text-gray-700">Les Enjeux Techniques</a></li>
+            <li><a href="#objectif" class="nav-link block p-2 rounded-lg font-medium text-gray-700">Objectif de l'Atelier</a></li>
+        </ul>
+    </nav>
+
+    <main class="flex-1 md:ml-64 p-6 md:p-10">
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-dark-green">Du Big Data à l'IA : Une Révolution Analytique</h1>
+            <p class="mt-4 text-lg text-gray-600">Comprendre les concepts pour maîtriser les outils</p>
+        </header>
+
+        <section id="intro" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-dark-green">1. La genèse : Pourquoi le "Big Data" ?</h2>
+            <p class="mb-8 text-gray-700 leading-relaxed">
+                Le concept de "Big Data" est né de l'incapacité des outils traditionnels à gérer la nouvelle nature des données. Il ne s'agit pas seulement de volume, mais d'un ensemble de caractéristiques qui ont redéfini notre approche de l'information. Ces caractéristiques, souvent appelées les "5V", décrivent les défis et les opportunités que présentent les données modernes.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 text-center">
+                    <span class="text-4xl">📊</span>
+                    <h3 class="text-xl font-bold text-custom-green mt-2">Volume</h3>
+                    <p class="mt-2 text-gray-600">Croissance exponentielle de la quantité de données.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 text-center">
+                     <span class="text-4xl">🧬</span>
+                    <h3 class="text-xl font-bold text-custom-green mt-2">Variété</h3>
+                    <p class="mt-2 text-gray-600">Diversité des formats : structurés, semi-structurés (JSON) et non-structurés.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 text-center">
+                     <span class="text-4xl">⚡️</span>
+                    <h3 class="text-xl font-bold text-custom-green mt-2">Vélocité</h3>
+                    <p class="mt-2 text-gray-600">Vitesse de création et traitement des données, souvent en temps réel.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 text-center">
+                     <span class="text-4xl">✅</span>
+                    <h3 class="text-xl font-bold text-custom-green mt-2">Véracité</h3>
+                    <p class="mt-2 text-gray-600">Nécessité de garantir la fiabilité et la qualité des données.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 text-center">
+                     <span class="text-4xl">💡</span>
+                    <h3 class="text-xl font-bold text-custom-green mt-2">Valeur</h3>
+                    <p class="mt-2 text-gray-600">Potentiel de transformation des données en décisions stratégiques.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="architectures" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-dark-green">2. L'Évolution des Architectures de Données</h2>
+            <p class="mb-8 text-gray-700 leading-relaxed">
+                Pour répondre aux défis des 5V, les architectures de gestion de données ont radicalement évolué. Chaque étape a apporté des solutions à des problèmes spécifiques, menant aux approches flexibles et puissantes que nous utilisons aujourd'hui. Explorez cette évolution en cliquant sur chaque étape ci-dessous.
+            </p>
+            <div id="architecture-timeline" class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 md:space-x-4 mb-8">
+                <div class="interactive-item p-4 text-center rounded-lg border-2 border-gray-300 w-full md:w-1/4" data-content="warehouse">
+                    <h4 class="font-bold">🏢 Data Warehouse</h4>
+                    <span class="text-sm text-gray-500">L'ère structurée</span>
+                </div>
+                <span class="text-2xl text-gray-400 hidden md:block">→</span>
+                <div class="interactive-item p-4 text-center rounded-lg border-2 border-gray-300 w-full md:w-1/4" data-content="lake">
+                    <h4 class="font-bold">💧 Data Lake</h4>
+                    <span class="text-sm text-gray-500">Stocker tout</span>
+                </div>
+                 <span class="text-2xl text-gray-400 hidden md:block">→</span>
+                <div class="interactive-item p-4 text-center rounded-lg border-2 border-gray-300 w-full md:w-1/4" data-content="lakehouse">
+                    <h4 class="font-bold">🏠 Lakehouse</h4>
+                    <span class="text-sm text-gray-500">Le meilleur des deux</span>
+                </div>
+                 <span class="text-2xl text-gray-400 hidden md:block">→</span>
+                <div class="interactive-item p-4 text-center rounded-lg border-2 border-gray-300 w-full md:w-1/4" data-content="mesh">
+                    <h4 class="font-bold">🕸️ Data Mesh</h4>
+                    <span class="text-sm text-gray-500">L'approche produit</span>
+                </div>
+            </div>
+            <div id="content-panel" class="bg-white p-8 rounded-xl shadow-lg border border-gray-200 min-h-[20rem]">
+                <h3 id="content-title" class="text-2xl font-bold text-custom-green mb-4">Sélectionnez une étape</h3>
+                <div id="content-details">
+                    <p class="text-gray-600">Cliquez sur une des architectures ci-dessus pour afficher ses forces, ses limites et son concept.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="cloud" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-dark-green">3. Le Cloud : Le Catalyseur du Big Data et de l'IA</h2>
+            <p class="mb-8 text-gray-700 leading-relaxed">
+                Le Cloud est devenu le moteur de l'analyse à grande échelle. Il a démocratisé l'accès à des capacités de calcul et de stockage qui étaient auparavant réservées à de très grandes organisations, rendant ainsi le Big Data et l'IA accessibles à tous.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Avant le Cloud</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-600">
+                        <li>Investissements massifs en serveurs sur site (on-premise).</li>
+                        <li>Complexité de maintenance et de mise à l'échelle.</li>
+                        <li>Coûts fixes élevés, même en cas de non-utilisation.</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                    <h3 class="text-2xl font-bold text-custom-green mb-4">Les Avantages du Cloud</h3>
+                     <ul class="list-disc list-inside space-y-2 text-gray-600">
+                        <li><strong class="text-custom-green">Élasticité :</strong> Puissance de calcul quasi-infinie à la demande.</li>
+                        <li><strong class="text-custom-green">Stockage Économique :</strong> Services comme S3 ou Blob Storage.</li>
+                        <li><strong class="text-custom-green">Services Managés :</strong> Des plateformes comme **Databricks** simplifient l'infrastructure.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="workflow" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-dark-green">4. Cas d'Usage : Le Workflow d'un Projet IA</h2>
+            <p class="mb-8 text-gray-700 leading-relaxed">
+                Le Big Data est le carburant de l'Intelligence Artificielle. Un projet d'IA suit un cycle de vie itératif, de la préparation des données à l'évaluation du modèle. Chaque étape est cruciale pour construire un système prédictif performant et fiable.
+            </p>
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="w-full md:w-1/3 space-y-4" id="workflow-steps">
+                    <div class="interactive-item p-4 rounded-lg border-2 border-gray-300 flex items-center" data-content="engineering">
+                        <span class="text-3xl mr-4">🛠️</span>
+                        <div>
+                            <h4 class="font-bold">1. Feature Engineering</h4>
+                            <p class="text-sm text-gray-500">Transformer les données.</p>
+                        </div>
+                    </div>
+                    <div class="interactive-item p-4 rounded-lg border-2 border-gray-300 flex items-center" data-content="modeling">
+                         <span class="text-3xl mr-4">🧠</span>
+                        <div>
+                            <h4 class="font-bold">2. Modélisation Prédictive</h4>
+                            <p class="text-sm text-gray-500">Entraîner un algorithme.</p>
+                        </div>
+                    </div>
+                     <div class="interactive-item p-4 rounded-lg border-2 border-gray-300 flex items-center" data-content="evaluation">
+                        <span class="text-3xl mr-4">📈</span>
+                        <div>
+                            <h4 class="font-bold">3. Évaluation & Itération</h4>
+                            <p class="text-sm text-gray-500">Mesurer et améliorer.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full md:w-2/3 bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                    <div id="workflow-content">
+                        <h3 id="workflow-title" class="text-2xl font-bold text-custom-green mb-4">Les Étapes Clés</h3>
+                        <p id="workflow-details" class="text-gray-600">Cliquez sur une étape pour en savoir plus.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="enjeux" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-dark-green">5. Les Enjeux au-delà de la Technique</h2>
+            <p class="mb-8 text-gray-700 leading-relaxed">
+                Un modèle techniquement performant ne suffit pas, surtout dans des contextes réglementés comme la finance ou la fiscalité. Il doit être fiable, juste et compréhensible. Ces quatre enjeux sont devenus des piliers de la data science moderne.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                 <div class="space-y-4" id="enjeux-cards">
+                    <div class="interactive-item p-4 rounded-lg border-2 border-gray-300 flex items-center" data-content="gouvernance">
+                        <span class="text-3xl mr-4">⚖️</span>
+                        <div>
+                            <h4 class="font-bold">Gouvernance</h4>
+                            <p class="text-sm text-gray-500">Qui a accès aux données ?</p>
+                        </div>
+                    </div>
+                    <div class="interactive-item p-4 rounded-lg border-2 border-gray-300 flex items-center" data-content="xai">
+                         <span class="text-3xl mr-4">🔍</span>
+                         <div>
+                            <h4 class="font-bold">Explicabilité (XAI)</h4>
+                            <p class="text-sm text-gray-500">Pourquoi cette décision ?</p>
+                         </div>
+                    </div>
+                    <div class="interactive-item p-4 rounded-lg border-2 border-gray-300 flex items-center" data-content="ethique">
+                        <span class="text-3xl mr-4">🤝</span>
+                        <div>
+                            <h4 class="font-bold">Éthique & Biais</h4>
+                            <p class="text-sm text-gray-500">Le modèle est-il équitable ?</p>
+                        </div>
+                    </div>
+                     <div class="interactive-item p-4 rounded-lg border-2 border-gray-300 flex items-center" data-content="prescriptif">
+                        <span class="text-3xl mr-4">🎯</span>
+                        <div>
+                            <h4 class="font-bold">Analyse Prescriptive</h4>
+                            <p class="text-sm text-gray-500">Comment utiliser les résultats ?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                    <div id="enjeux-content">
+                        <h3 id="enjeux-title" class="text-2xl font-bold text-custom-green mb-4">Quatre piliers essentiels</h3>
+                        <p id="enjeux-details" class="text-gray-600">Cliquez sur un enjeu pour découvrir son importance.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="objectif" class="mb-16">
+             <h2 class="text-3xl font-bold mb-6 text-dark-green">6. Résumé et Objectifs de l'Atelier</h2>
+             <div class="bg-light-green p-8 rounded-xl border-l-4 border-custom-green">
+                 <h3 class="text-2xl font-bold text-dark-green mb-4">Ce que nous avons vu :</h3>
+                 <ul class="list-disc list-inside space-y-2 text-dark-green">
+                     <li>Les <strong class="font-semibold">5V</strong> qui caractérisent le Big Data.</li>
+                     <li>L'évolution des architectures, du <strong class="font-semibold">Data Warehouse</strong> au <strong class="font-semibold">Lakehouse</strong>.</li>
+                     <li>Le rôle central du <strong class="font-semibold">Cloud</strong> et de plateformes comme <strong class="font-semibold">Databricks</strong>.</li>
+                     <li>Les enjeux critiques d'un projet d'IA : <strong class="font-semibold">explicabilité, éthique et optimisation</strong>.</li>
+                 </ul>
+                 <h3 class="text-2xl font-bold text-dark-green mt-6 mb-4">Objectif de l'Atelier Pratique :</h3>
+                 <p class="text-dark-green leading-relaxed">
+                     L'objectif est de mettre en pratique ce cycle de A à Z. Nous allons construire, évaluer et interpréter un modèle de détection de fraude, puis transformer ses résultats en recommandations concrètes et actionnables.
+                 </p>
+             </div>
+        </section>
+
+    </main>
+
+    <script>
+        const contentData = {
+            architectures: {
+                warehouse: {
+                    title: "Le Data Warehouse",
+                    details: "<strong>Concept :</strong> Un entrepôt de données centralisé, optimisé pour l'analyse décisionnelle (BI).<br><strong>Forces :</strong> Très performant pour les requêtes structurées, données de haute qualité.<br><strong>Limites :</strong> Rigide (schéma prédéfini), coûteux, et peu adapté aux données temps réel."
+                },
+                lake: {
+                    title: "Le Data Lake",
+                    details: "<strong>Concept :</strong> Un immense réservoir de données brutes, stockées dans leur format natif.<br><strong>Forces :</strong> Flexible, gère tous types de données à faible coût, idéal pour la data science.<br><strong>Limites :</strong> Risque de devenir un 'marais de données' (data swamp) sans gouvernance stricte."
+                },
+                lakehouse: {
+                    title: "Le Lakehouse",
+                    details: "<strong>Concept :</strong> Une architecture unifiée qui combine la flexibilité du lac et la performance de l'entrepôt.<br><strong>Comment :</strong> Utilise des formats ouverts (Parquet) sur un stockage cloud et y ajoute une couche de gestion (ACID, gouvernance) via des technologies comme <strong>Delta Lake</strong>.<br><strong>Avantages :</strong> Une seule source de vérité pour la BI et l'IA, réduisant complexité et coûts. <strong>Databricks</strong> est le pionnier de cette approche."
+                },
+                mesh: {
+                    title: "Le Data Mesh",
+                    details: "<strong>Concept :</strong> Une approche organisationnelle traitant les données comme un produit.<br><strong>Principes :</strong> Propriété des données par domaine métier, plateforme en self-service, et gouvernance fédérée pour garantir l'interopérabilité.<br><strong>Objectif :</strong> Accélérer l'innovation en décentralisant la responsabilité des données."
+                }
+            },
+            workflow: {
+                engineering: {
+                    title: "1. Exploration & Feature Engineering",
+                    details: "C'est la partie la plus créative et souvent la plus longue d'un projet. Elle consiste à nettoyer les données, comprendre leurs relations, et créer de nouvelles variables (features) qui aideront le modèle à mieux prédire la cible. Une bonne feature peut avoir plus d'impact qu'un algorithme complexe."
+                },
+                modeling: {
+                    title: "2. Modélisation Prédictive",
+                    details: "On choisit un algorithme adapté au problème (classification, régression...). L'algorithme est ensuite entraîné sur une partie des données (le 'training set') pour qu'il apprenne les schémas et les relations entre les 'features' et la cible à prédire."
+                },
+                evaluation: {
+                    title: "3. Évaluation & Itération",
+                    details: "Le modèle entraîné est testé sur des données qu'il n'a jamais vues (le 'test set') pour mesurer sa performance réelle. On utilise des métriques comme la précision, le rappel ou l'AUC. Si la performance n'est pas satisfaisante, on retourne à l'étape de feature engineering pour améliorer le modèle."
+                }
+            },
+            enjeux: {
+                 gouvernance: {
+                    title: "Gouvernance",
+                    details: "La gouvernance des données assure que les données sont gérées de manière sécurisée, cohérente et conforme. Elle répond aux questions : Qui a le droit de voir quelles données ? Comment la qualité est-elle maintenue ? Comment tracer l'origine et les transformations d'une donnée ? Des outils comme <strong>Unity Catalog</strong> dans Databricks sont essentiels pour cela."
+                },
+                xai: {
+                    title: "Explicabilité (XAI)",
+                    details: "Les modèles d'IA complexes comme les réseaux de neurones ou XGBoost sont souvent des 'boîtes noires'. L'Explicabilité (eXplainable AI) vise à rendre leurs décisions compréhensibles. Des outils comme <strong>SHAP</strong> calculent la contribution de chaque variable à une prédiction, ce qui est crucial pour la confiance, l'audit et la justification des décisions."
+                },
+                ethique: {
+                    title: "Éthique & Biais",
+                    details: "Un modèle peut être techniquement parfait mais éthiquement problématique s'il reproduit ou amplifie des biais existants dans les données. L'analyse des biais consiste à vérifier si le modèle est équitable pour différents groupes de population (par pays, genre, etc.) en mesurant par exemple si les taux d'erreur sont similaires pour tous."
+                },
+                prescriptif: {
+                    title: "Analyse Prescriptive",
+                    details: "C'est le niveau d'analyse le plus avancé. Au-delà de prédire ce qui va se passer, l'analyse prescriptive recommande la meilleure action à entreprendre pour atteindre un objectif, en tenant compte des contraintes. Par exemple, comment allouer un budget d'audit limité pour maximiser la détection de fraude, un problème que des solveurs comme <strong>PuLP</strong> peuvent résoudre."
+                }
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const setupInteractivePanel = (containerId, contentPanelId, contentDataKey) => {
+                const container = document.getElementById(containerId);
+                const panel = document.getElementById(contentPanelId);
+                const titleEl = panel.querySelector('h3');
+                const detailsEl = panel.querySelector('p, div');
+
+                container.addEventListener('click', e => {
+                    const item = e.target.closest('.interactive-item');
+                    if (!item) return;
+
+                    const contentId = item.dataset.content;
+                    const content = contentData[contentDataKey][contentId];
+                    
+                    container.querySelectorAll('.interactive-item').forEach(el => el.classList.remove('active'));
+                    item.classList.add('active');
+                    
+                    if (titleEl && detailsEl) {
+                        titleEl.innerHTML = content.title;
+                        detailsEl.innerHTML = content.details;
+                    }
+                });
+            };
+            
+            setupInteractivePanel('architecture-timeline', 'content-panel', 'architectures');
+            setupInteractivePanel('workflow-steps', 'workflow-content', 'workflow');
+            setupInteractivePanel('enjeux-cards', 'enjeux-content', 'enjeux');
+
+            const navLinks = document.querySelectorAll('#navigation .nav-link');
+            const sections = document.querySelectorAll('main section');
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                        });
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            sections.forEach(section => observer.observe(section));
+        });
+    </script>
+</body>
+</html>
+
