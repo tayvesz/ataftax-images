@@ -1,25 +1,13 @@
-fais une presentation en html en utilisant les memes couleur et le logo ataf en t'appuyant sur l'exemple suivant
-
 <!DOCTYPE html>
 <html lang="fr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Du Big Data à l'IA : Une Révolution Analytique</title>
+    <title>Guide de Démarrage Google Colab</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: ATAF Green -->
-    <!-- Application Structure Plan: The application is a single-page layout with a fixed sidebar for navigation and a main scrollable content area. This structure allows users to either follow the narrative flow by scrolling or jump to specific topics of interest using the navigation. Key concepts like 'Architecture Evolution' and 'AI Workflow' are presented as interactive diagrams where clicking on a stage dynamically updates a dedicated content panel within the same section. This design groups related information, enhances user engagement by encouraging exploration, and supports both linear and non-linear consumption of the content, making it highly usable. -->
-    <!-- Visualization & Content Choices: 
-        - 5 Vs -> Goal: Inform -> Presentation: Grid of 5 cards with icons -> Interaction: None (static for clarity) -> Justification: Provides a quick, scannable overview of core concepts -> Library/Method: HTML/Tailwind.
-        - Architecture Evolution -> Goal: Show Change/Compare -> Presentation: Horizontal interactive timeline -> Interaction: Click on a stage to display details below -> Justification: Visually represents progression and allows users to explore each stage without losing context -> Library/Method: HTML/Tailwind + JS DOM manipulation.
-        - The Cloud -> Goal: Inform -> Presentation: Two-column comparison layout -> Interaction: None -> Justification: Clear and direct comparison of "before" and "after" -> Library/Method: HTML/Tailwind.
-        - AI Workflow -> Goal: Show Process -> Presentation: Vertical numbered list of interactive steps -> Interaction: Click on a step to see its description -> Justification: Emphasizes the sequential nature of the workflow in a clean format -> Library/Method: HTML/Tailwind + JS DOM manipulation.
-        - Key Challenges -> Goal: Organize/Inform -> Presentation: Grid of interactive cards -> Interaction: Click on a card to display details in a central panel -> Justification: Organizes distinct but related topics and focuses user attention -> Library/Method: HTML/Tailwind + JS DOM manipulation.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <script>
     tailwind.config = {
       theme: {
@@ -57,8 +45,22 @@ fais une presentation en html en utilisant les memes couleur et le logo ataf en 
             transform: translateY(-2px);
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
         }
-        #content-panel, #workflow-content, #enjeux-content {
+        #content-panel, #workflow-content {
             transition: opacity 0.3s ease-in-out;
+        }
+        code {
+            background-color: #eef;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        pre code {
+            display: block;
+            padding: 1rem;
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            border-radius: 8px;
+            white-space: pre-wrap;
         }
     </style>
 </head>
@@ -70,140 +72,134 @@ fais une presentation en html en utilisant les memes couleur et le logo ataf en 
         </div>
         <h1 class="text-xl font-bold text-dark-green">Navigation</h1>
         <ul class="mt-6 space-y-2" id="navigation">
-            <li><a href="#intro" class="nav-link block p-2 rounded-lg font-medium text-gray-700">La genèse du Big Data</a></li>
-            <li><a href="#architectures" class="nav-link block p-2 rounded-lg font-medium text-gray-700">Évolution des Architectures</a></li>
-            <li><a href="#cloud" class="nav-link block p-2 rounded-lg font-medium text-gray-700">Le Cloud Catalyseur</a></li>
-            <li><a href="#workflow" class="nav-link block p-2 rounded-lg font-medium text-gray-700">Workflow d'un Projet IA</a></li>
-            <li><a href="#enjeux" class="nav-link block p-2 rounded-lg font-medium text-gray-700">Les Enjeux Techniques</a></li>
-            <li><a href="#objectif" class="nav-link block p-2 rounded-lg font-medium text-gray-700">Objectif de l'Atelier</a></li>
+            <li><a href="#intro" class="nav-link block p-2 rounded-lg font-medium text-gray-700">Introduction à Colab</a></li>
+            <li><a href="#anatomie" class="nav-link block p-2 rounded-lg font-medium text-gray-700">Anatomie d'un Notebook</a></li>
+            <li><a href="#drive" class="nav-link block p-2 rounded-lg font-medium text-gray-700">Connecter Google Drive</a></li>
+            <li><a href="#workflow" class="nav-link block p-2 rounded-lg font-medium text-gray-700">Le Workflow Essentiel</a></li>
+            <li><a href="#resume" class="nav-link block p-2 rounded-lg font-medium text-gray-700">Résumé & Objectifs</a></li>
         </ul>
     </nav>
 
     <main class="flex-1 md:ml-64 p-6 md:p-10">
         <header class="text-center mb-16">
-            <h1 class="text-4xl md:text-5xl font-bold text-dark-green">Du Big Data à l'IA : Une Révolution Analytique</h1>
-            <p class="mt-4 text-lg text-gray-600">Comprendre les concepts pour maîtriser les outils</p>
+            <h1 class="text-4xl md:text-5xl font-bold text-dark-green">Démarrer avec Google Colab</h1>
+            <p class="mt-4 text-lg text-gray-600">Votre guide essentiel pour coder dans le cloud</p>
         </header>
 
         <section id="intro" class="mb-16">
-            <h2 class="text-3xl font-bold mb-6 text-dark-green">1. La genèse : Pourquoi le "Big Data" ?</h2>
+            <h2 class="text-3xl font-bold mb-6 text-dark-green">1. Qu'est-ce que Google Colab ?</h2>
             <p class="mb-8 text-gray-700 leading-relaxed">
-                Le concept de "Big Data" est né de l'incapacité des outils traditionnels à gérer la nouvelle nature des données. Il ne s'agit pas seulement de volume, mais d'un ensemble de caractéristiques qui ont redéfini notre approche de l'information. Ces caractéristiques, souvent appelées les "5V", décrivent les défis et les opportunités que présentent les données modernes.
+                Google Colaboratory, ou "Colab", est un environnement de développement Python gratuit qui s'exécute entièrement dans le cloud. Il permet à quiconque d'écrire et d'exécuter du code via son navigateur. C'est l'outil idéal pour l'analyse de données et le machine learning, car il élimine les barrières techniques et matérielles.
             </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 text-center">
-                    <span class="text-4xl">📊</span>
-                    <h3 class="text-xl font-bold text-custom-green mt-2">Volume</h3>
-                    <p class="mt-2 text-gray-600">Croissance exponentielle de la quantité de données.</p>
+                    <span class="text-4xl">🎉</span>
+                    <h3 class="text-xl font-bold text-custom-green mt-2">Gratuit</h3>
+                    <p class="mt-2 text-gray-600">Accès à des ressources de calcul, y compris des GPU, sans frais.</p>
                 </div>
                 <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 text-center">
-                     <span class="text-4xl">🧬</span>
-                    <h3 class="text-xl font-bold text-custom-green mt-2">Variété</h3>
-                    <p class="mt-2 text-gray-600">Diversité des formats : structurés, semi-structurés (JSON) et non-structurés.</p>
+                     <span class="text-4xl">⚙️</span>
+                    <h3 class="text-xl font-bold text-custom-green mt-2">Aucune Configuration</h3>
+                    <p class="mt-2 text-gray-600">Toutes les bibliothèques populaires sont pré-installées. Codez instantanément.</p>
                 </div>
                 <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 text-center">
-                     <span class="text-4xl">⚡️</span>
-                    <h3 class="text-xl font-bold text-custom-green mt-2">Vélocité</h3>
-                    <p class="mt-2 text-gray-600">Vitesse de création et traitement des données, souvent en temps réel.</p>
+                     <span class="text-4xl">🚀</span>
+                    <h3 class="text-xl font-bold text-custom-green mt-2">Accès aux GPU/TPU</h3>
+                    <p class="mt-2 text-gray-600">Accélérez vos calculs pour le machine learning en un seul clic.</p>
                 </div>
                 <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 text-center">
-                     <span class="text-4xl">✅</span>
-                    <h3 class="text-xl font-bold text-custom-green mt-2">Véracité</h3>
-                    <p class="mt-2 text-gray-600">Nécessité de garantir la fiabilité et la qualité des données.</p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 text-center">
-                     <span class="text-4xl">💡</span>
-                    <h3 class="text-xl font-bold text-custom-green mt-2">Valeur</h3>
-                    <p class="mt-2 text-gray-600">Potentiel de transformation des données en décisions stratégiques.</p>
+                     <span class="text-4xl">🤝</span>
+                    <h3 class="text-xl font-bold text-custom-green mt-2">Collaboration</h3>
+                    <p class="mt-2 text-gray-600">Partagez et modifiez vos notebooks en temps réel, comme avec Google Docs.</p>
                 </div>
             </div>
         </section>
 
-        <section id="architectures" class="mb-16">
-            <h2 class="text-3xl font-bold mb-6 text-dark-green">2. L'Évolution des Architectures de Données</h2>
+        <section id="anatomie" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-dark-green">2. Anatomie d'un Notebook Colab</h2>
             <p class="mb-8 text-gray-700 leading-relaxed">
-                Pour répondre aux défis des 5V, les architectures de gestion de données ont radicalement évolué. Chaque étape a apporté des solutions à des problèmes spécifiques, menant aux approches flexibles et puissantes que nous utilisons aujourd'hui. Explorez cette évolution en cliquant sur chaque étape ci-dessous.
+                L'interface de Colab est simple et puissante. Elle est composée de "cellules" qui peuvent contenir soit du code, soit du texte. Cette structure mixte en fait un outil parfait pour le prototypage, la recherche et la documentation. Explorez les composants clés ci-dessous.
             </p>
-            <div id="architecture-timeline" class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 md:space-x-4 mb-8">
-                <div class="interactive-item p-4 text-center rounded-lg border-2 border-gray-300 w-full md:w-1/4" data-content="warehouse">
-                    <h4 class="font-bold">🏢 Data Warehouse</h4>
-                    <span class="text-sm text-gray-500">L'ère structurée</span>
+            <div id="anatomie-timeline" class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 md:space-x-4 mb-8">
+                <div class="interactive-item p-4 text-center rounded-lg border-2 border-gray-300 w-full md:w-1/4" data-content="code">
+                    <h4 class="font-bold">🐍 Cellule de Code</h4>
+                    <span class="text-sm text-gray-500">Pour exécuter Python</span>
                 </div>
-                <span class="text-2xl text-gray-400 hidden md:block">→</span>
-                <div class="interactive-item p-4 text-center rounded-lg border-2 border-gray-300 w-full md:w-1/4" data-content="lake">
-                    <h4 class="font-bold">💧 Data Lake</h4>
-                    <span class="text-sm text-gray-500">Stocker tout</span>
+                <span class="text-2xl text-gray-400 hidden md:block">↔️</span>
+                <div class="interactive-item p-4 text-center rounded-lg border-2 border-gray-300 w-full md:w-1/4" data-content="text">
+                    <h4 class="font-bold">📝 Cellule de Texte</h4>
+                    <span class="text-sm text-gray-500">Pour documenter</span>
                 </div>
-                 <span class="text-2xl text-gray-400 hidden md:block">→</span>
-                <div class="interactive-item p-4 text-center rounded-lg border-2 border-gray-300 w-full md:w-1/4" data-content="lakehouse">
-                    <h4 class="font-bold">🏠 Lakehouse</h4>
-                    <span class="text-sm text-gray-500">Le meilleur des deux</span>
+                 <span class="text-2xl text-gray-400 hidden md:block">↔️</span>
+                <div class="interactive-item p-4 text-center rounded-lg border-2 border-gray-300 w-full md:w-1/4" data-content="toolbar">
+                    <h4 class="font-bold">🛠️ Barre d'outils</h4>
+                    <span class="text-sm text-gray-500">Les raccourcis</span>
                 </div>
-                 <span class="text-2xl text-gray-400 hidden md:block">→</span>
-                <div class="interactive-item p-4 text-center rounded-lg border-2 border-gray-300 w-full md:w-1/4" data-content="mesh">
-                    <h4 class="font-bold">🕸️ Data Mesh</h4>
-                    <span class="text-sm text-gray-500">L'approche produit</span>
+                 <span class="text-2xl text-gray-400 hidden md:block">↔️</span>
+                <div class="interactive-item p-4 text-center rounded-lg border-2 border-gray-300 w-full md:w-1/4" data-content="sidebar">
+                    <h4 class="font-bold">🗂️ Volet Latéral</h4>
+                    <span class="text-sm text-gray-500">Fichiers & Outils</span>
                 </div>
             </div>
-            <div id="content-panel" class="bg-white p-8 rounded-xl shadow-lg border border-gray-200 min-h-[20rem]">
-                <h3 id="content-title" class="text-2xl font-bold text-custom-green mb-4">Sélectionnez une étape</h3>
+            <div id="content-panel" class="bg-white p-8 rounded-xl shadow-lg border border-gray-200 min-h-[16rem]">
+                <h3 id="content-title" class="text-2xl font-bold text-custom-green mb-4">Sélectionnez un composant</h3>
                 <div id="content-details">
-                    <p class="text-gray-600">Cliquez sur une des architectures ci-dessus pour afficher ses forces, ses limites et son concept.</p>
+                    <p class="text-gray-600">Cliquez sur un des composants ci-dessus pour afficher sa description et son utilité.</p>
                 </div>
             </div>
         </section>
 
-        <section id="cloud" class="mb-16">
-            <h2 class="text-3xl font-bold mb-6 text-dark-green">3. Le Cloud : Le Catalyseur du Big Data et de l'IA</h2>
+        <section id="drive" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-dark-green">3. Connecter Google Drive : Votre Espace de Travail</h2>
             <p class="mb-8 text-gray-700 leading-relaxed">
-                Le Cloud est devenu le moteur de l'analyse à grande échelle. Il a démocratisé l'accès à des capacités de calcul et de stockage qui étaient auparavant réservées à de très grandes organisations, rendant ainsi le Big Data et l'IA accessibles à tous.
+                Les fichiers dans une session Colab sont temporaires. Pour un travail durable, il est essentiel de connecter votre Google Drive. Cela vous permet de sauvegarder vos notebooks, de charger vos jeux de données et d'enregistrer vos résultats de manière permanente.
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Avant le Cloud</h3>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Méthode 1 : Interface Graphique</h3>
                     <ul class="list-disc list-inside space-y-2 text-gray-600">
-                        <li>Investissements massifs en serveurs sur site (on-premise).</li>
-                        <li>Complexité de maintenance et de mise à l'échelle.</li>
-                        <li>Coûts fixes élevés, même en cas de non-utilisation.</li>
+                        <li>Dans le volet latéral gauche, cliquez sur l'icône <strong>Dossier</strong>.</li>
+                        <li>Cliquez sur l'icône <strong>"Monter le Drive"</strong>.</li>
+                        <li>Autorisez l'accès à votre compte Google.</li>
+                        <li>Votre Drive apparaît sous <code>/content/drive/My Drive/</code>.</li>
                     </ul>
                 </div>
                 <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
-                    <h3 class="text-2xl font-bold text-custom-green mb-4">Les Avantages du Cloud</h3>
-                     <ul class="list-disc list-inside space-y-2 text-gray-600">
-                        <li><strong class="text-custom-green">Élasticité :</strong> Puissance de calcul quasi-infinie à la demande.</li>
-                        <li><strong class="text-custom-green">Stockage Économique :</strong> Services comme S3 (AWS) ou Blob Storage (Azure).</li>
-                        <li><strong class="text-custom-green">Services Managés :</strong> Des plateformes comme <strong class="font-semibold">Databricks</strong> s'appuient sur cette infrastructure pour simplifier le déploiement de clusters de calcul et la gestion des données.</li>
-                    </ul>
+                    <h3 class="text-2xl font-bold text-custom-green mb-4">Méthode 2 : Code Python</h3>
+                     <p class="text-gray-600 mb-4">Exécutez le code suivant dans une cellule pour monter votre Drive :</p>
+                     <pre><code>from google.colab import drive
+drive.mount('/content/drive')</code></pre>
+                     <p class="text-gray-600 mt-4">Suivez le lien, copiez le code d'autorisation et collez-le dans le champ de saisie.</p>
                 </div>
             </div>
         </section>
 
         <section id="workflow" class="mb-16">
-            <h2 class="text-3xl font-bold mb-6 text-dark-green">4. Cas d'Usage : Le Workflow d'un Projet IA</h2>
+            <h2 class="text-3xl font-bold mb-6 text-dark-green">4. Le Workflow Essentiel pour Démarrer</h2>
             <p class="mb-8 text-gray-700 leading-relaxed">
-                Le Big Data est le carburant de l'Intelligence Artificielle. Un projet d'IA suit un cycle de vie itératif, de la préparation des données à l'évaluation du modèle. Chaque étape est cruciale pour construire un système prédictif performant et fiable.
+                Démarrer un projet sur Colab suit un cycle simple et efficace. De la création du notebook à l'utilisation de bibliothèques spécifiques et de matériel puissant, tout est conçu pour vous permettre de vous concentrer sur votre code.
             </p>
             <div class="flex flex-col md:flex-row gap-8">
                 <div class="w-full md:w-1/3 space-y-4" id="workflow-steps">
-                    <div class="interactive-item p-4 rounded-lg border-2 border-gray-300 flex items-center" data-content="engineering">
-                        <span class="text-3xl mr-4">🛠️</span>
+                    <div class="interactive-item p-4 rounded-lg border-2 border-gray-300 flex items-center" data-content="create">
+                        <span class="text-3xl mr-4">📄</span>
                         <div>
-                            <h4 class="font-bold">1. Feature Engineering</h4>
-                            <p class="text-sm text-gray-500">Transformer les données.</p>
+                            <h4 class="font-bold">1. Créer un Notebook</h4>
+                            <p class="text-sm text-gray-500">Depuis Colab ou Drive.</p>
                         </div>
                     </div>
-                    <div class="interactive-item p-4 rounded-lg border-2 border-gray-300 flex items-center" data-content="modeling">
-                         <span class="text-3xl mr-4">🧠</span>
+                    <div class="interactive-item p-4 rounded-lg border-2 border-gray-300 flex items-center" data-content="install">
+                         <span class="text-3xl mr-4">📦</span>
                         <div>
-                            <h4 class="font-bold">2. Modélisation Prédictive</h4>
-                            <p class="text-sm text-gray-500">Entraîner un algorithme.</p>
+                            <h4 class="font-bold">2. Installer une Bibliothèque</h4>
+                            <p class="text-sm text-gray-500">Avec la commande `!pip`.</p>
                         </div>
                     </div>
-                     <div class="interactive-item p-4 rounded-lg border-2 border-gray-300 flex items-center" data-content="evaluation">
-                        <span class="text-3xl mr-4">📈</span>
+                     <div class="interactive-item p-4 rounded-lg border-2 border-gray-300 flex items-center" data-content="gpu">
+                        <span class="text-3xl mr-4">⚡️</span>
                         <div>
-                            <h4 class="font-bold">3. Évaluation & Itération</h4>
-                            <p class="text-sm text-gray-500">Mesurer et améliorer.</p>
+                            <h4 class="font-bold">3. Activer un Accélérateur</h4>
+                            <p class="text-sm text-gray-500">Choisir un GPU ou TPU.</p>
                         </div>
                     </div>
                 </div>
@@ -215,65 +211,20 @@ fais une presentation en html en utilisant les memes couleur et le logo ataf en 
                 </div>
             </div>
         </section>
-        
-        <section id="enjeux" class="mb-16">
-            <h2 class="text-3xl font-bold mb-6 text-dark-green">5. Les Enjeux au-delà de la Technique</h2>
-            <p class="mb-8 text-gray-700 leading-relaxed">
-                Un modèle techniquement performant ne suffit pas, surtout dans des contextes réglementés comme la finance ou la fiscalité. Il doit être fiable, juste et compréhensible. Ces quatre enjeux sont devenus des piliers de la data science moderne.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                 <div class="space-y-4" id="enjeux-cards">
-                    <div class="interactive-item p-4 rounded-lg border-2 border-gray-300 flex items-center" data-content="gouvernance">
-                        <span class="text-3xl mr-4">⚖️</span>
-                        <div>
-                            <h4 class="font-bold">Gouvernance</h4>
-                            <p class="text-sm text-gray-500">Qui a accès aux données ?</p>
-                        </div>
-                    </div>
-                    <div class="interactive-item p-4 rounded-lg border-2 border-gray-300 flex items-center" data-content="xai">
-                         <span class="text-3xl mr-4">🔍</span>
-                         <div>
-                            <h4 class="font-bold">Explicabilité (XAI)</h4>
-                            <p class="text-sm text-gray-500">Pourquoi cette décision ?</p>
-                         </div>
-                    </div>
-                    <div class="interactive-item p-4 rounded-lg border-2 border-gray-300 flex items-center" data-content="ethique">
-                        <span class="text-3xl mr-4">🤝</span>
-                        <div>
-                            <h4 class="font-bold">Éthique & Biais</h4>
-                            <p class="text-sm text-gray-500">Le modèle est-il équitable ?</p>
-                        </div>
-                    </div>
-                     <div class="interactive-item p-4 rounded-lg border-2 border-gray-300 flex items-center" data-content="prescriptif">
-                        <span class="text-3xl mr-4">🎯</span>
-                        <div>
-                            <h4 class="font-bold">Analyse Prescriptive</h4>
-                            <p class="text-sm text-gray-500">Comment utiliser les résultats ?</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
-                    <div id="enjeux-content">
-                        <h3 id="enjeux-title" class="text-2xl font-bold text-custom-green mb-4">Quatre piliers essentiels</h3>
-                        <p id="enjeux-details" class="text-gray-600">Cliquez sur un enjeu pour découvrir son importance.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <section id="objectif" class="mb-16">
-             <h2 class="text-3xl font-bold mb-6 text-dark-green">6. Résumé et Objectifs de l'Atelier</h2>
+        <section id="resume" class="mb-16">
+             <h2 class="text-3xl font-bold mb-6 text-dark-green">5. Résumé et Prochaines Étapes</h2>
              <div class="bg-light-green p-8 rounded-xl border-l-4 border-custom-green">
                  <h3 class="text-2xl font-bold text-dark-green mb-4">Ce que nous avons vu :</h3>
                  <ul class="list-disc list-inside space-y-2 text-dark-green">
-                     <li>Les <strong class="font-semibold">5V</strong> qui caractérisent le Big Data.</li>
-                     <li>L'évolution des architectures, du <strong class="font-semibold">Data Warehouse</strong> au <strong class="font-semibold">Lakehouse</strong>.</li>
-                     <li>Le rôle central du <strong class="font-semibold">Cloud</strong> et de plateformes comme <strong class="font-semibold">Databricks</strong>.</li>
-                     <li>Les enjeux critiques d'un projet d'IA : <strong class="font-semibold">explicabilité, éthique et optimisation</strong>.</li>
+                     <li>Les <strong class="font-semibold">avantages clés</strong> de Colab : gratuit, sans configuration et collaboratif.</li>
+                     <li>La structure d'un notebook : un mélange de <strong class="font-semibold">cellules de code et de texte</strong>.</li>
+                     <li>Comment connecter <strong class="font-semibold">Google Drive</strong> pour un travail persistant.</li>
+                     <li>Les étapes de base : installer des paquets avec <strong class="font-semibold">`!pip`</strong> et activer les <strong class="font-semibold">GPU</strong>.</li>
                  </ul>
-                 <h3 class="text-2xl font-bold text-dark-green mt-6 mb-4">Objectif de l'Atelier Pratique :</h3>
+                 <h3 class="text-2xl font-bold text-dark-green mt-6 mb-4">Votre Objectif :</h3>
                  <p class="text-dark-green leading-relaxed">
-                     L'objectif est de mettre en pratique ce cycle de A à Z. Nous allons construire, évaluer et interpréter un modèle de détection de fraude, puis transformer ses résultats en recommandations concrètes et actionnables.
+                     Vous avez maintenant toutes les clés pour démarrer n'importe quel projet Python sur Colab. L'objectif est de vous lancer : importez un jeu de données depuis votre Drive, explorez-le avec Pandas, et pourquoi pas, entraînez votre premier modèle de machine learning !
                  </p>
              </div>
         </section>
@@ -282,54 +233,36 @@ fais une presentation en html en utilisant les memes couleur et le logo ataf en 
 
     <script>
         const contentData = {
-            architectures: {
-                warehouse: {
-                    title: "Le Data Warehouse (Années 90)",
-                    details: "<strong>Concept :</strong> Un entrepôt de données centralisé, optimisé pour l'analyse décisionnelle (BI). Il repose sur un modèle relationnel (SQL) où les données sont nettoyées, transformées et structurées via des processus <strong>ETL (Extract, Transform, Load)</strong> avant d'être stockées. <br><strong>Cas d'usage :</strong> Rapports financiers, analyse des ventes, tableaux de bord de performance.<br><strong>Forces :</strong> Très performant pour les requêtes structurées, données de haute qualité et fiables.<br><strong>Limites :</strong> Le <strong>Volume</strong> est géré par une mise à l'échelle verticale (ajout de puissance à un seul serveur), ce qui devient très coûteux. La <strong>Variété</strong> et la <strong>Vélocité</strong> sont mal gérées, car l'architecture est rigide et peu adaptée aux données temps réel."
+            anatomie: {
+                code: {
+                    title: "🐍 La Cellule de Code",
+                    details: "C'est le cœur de Colab. Vous y écrivez votre code Python. Pour l'exécuter, il suffit de cliquer sur l'icône 'Play' à gauche ou d'utiliser le raccourci clavier <strong>Ctrl+Entrée</strong>. Le résultat de l'exécution (texte, graphiques, tableaux) s'affiche juste en dessous de la cellule."
                 },
-                lake: {
-                    title: "Le Data Lake (Années 2000)",
-                    details: "<strong>Concept :</strong> En réponse aux limites du Warehouse, le Data Lake stocke d'immenses volumes de données brutes dans leur format natif. Il suit l'approche <strong>ELT (Extract, Load, Transform)</strong>, où la transformation se fait au moment de l'analyse.<br><strong>Technologies Clés :</strong><br> - <strong>Hadoop/HDFS :</strong> Pour le stockage distribué (scaling horizontal), beaucoup plus économique que le scaling vertical.<br> - <strong>Spark/MapReduce :</strong> Pour le traitement parallèle de ces grands volumes.<br> - <strong>Bases NoSQL (ex: MongoDB, Cassandra) :</strong> Pour gérer la variété des données semi-structurées (JSON, XML).<br> - <strong>Streaming (ex: Kafka, Flink) :</strong> Pour gérer la vélocité des données en temps réel.<br><strong>Forces :</strong> Flexible, économique, idéal pour la Data Science et l'IA.<br><strong>Limites :</strong> Sans gouvernance stricte, risque de devenir un 'marais de données' (data swamp) inutilisable."
+                text: {
+                    title: "📝 La Cellule de Texte",
+                    details: "Elle vous permet de documenter votre travail en utilisant la syntaxe <strong>Markdown</strong>. Vous pouvez créer des titres, des listes, mettre du texte en gras, insérer des images et des liens. C'est essentiel pour créer des rapports clairs et reproductibles."
                 },
-                lakehouse: {
-                    title: "Le Lakehouse (Années 2010-2020)",
-                    details: "<strong>Concept :</strong> Une architecture unifiée qui combine la flexibilité et le faible coût du Data Lake avec la fiabilité et les performances du Data Warehouse.<br><strong>Comment :</strong> Utilise des formats ouverts (Parquet, ORC) sur un stockage cloud (ex: S3) et y ajoute une couche de gestion transactionnelle (ACID) et de gouvernance via des technologies comme <strong>Delta Lake</strong> (le cœur de Databricks). <strong>Apache Spark</strong> reste le moteur de traitement de choix pour sa polyvalence.<br><strong>Avantages :</strong> Une seule source de vérité pour la BI et l'IA, réduisant la complexité et les coûts. <strong>Databricks</strong> est la plateforme pionnière de cette approche."
+                toolbar: {
+                    title: "🛠️ La Barre d'outils",
+                    details: "Située en haut du notebook, elle contient des boutons pour les actions les plus courantes : <strong>+ Code</strong> pour ajouter une cellule de code, <strong>+ Texte</strong> pour une cellule de texte, ainsi que des options pour déplacer les cellules vers le haut ou le bas."
                 },
-                mesh: {
-                    title: "Le Data Mesh (Approche Actuelle)",
-                    details: "<strong>Concept :</strong> Moins une technologie qu'une approche organisationnelle et décentralisée. Elle considère les données comme un produit, géré par les équipes métier qui les connaissent le mieux.<br><strong>Principes :</strong><br> - <strong>Propriété décentralisée :</strong> Chaque domaine (finance, marketing) est responsable de ses propres données.<br> - <strong>Données comme produit :</strong> Les données sont exposées via des API claires et fiables.<br> - <strong>Plateforme en self-service :</strong> Une équipe centrale fournit les outils (comme Databricks), mais pas la gestion des données elles-mêmes.<br><strong>Objectif :</strong> Augmenter l'agilité et l'innovation en évitant les goulots d'étranglement."
+                sidebar: {
+                    title: "🗂️ Le Volet Latéral",
+                    details: "Accessible via les icônes à gauche, ce volet est très utile. Il contient :<br> - <strong>Table des matières :</strong> Pour naviguer rapidement dans votre notebook.<br> - <strong>Explorateur de fichiers :</strong> Pour voir les fichiers de la session et monter votre Google Drive.<br> - <strong>Extraits de code :</strong> Des exemples de code prêts à l'emploi pour des tâches courantes."
                 }
             },
             workflow: {
-                engineering: {
-                    title: "1. Exploration & Feature Engineering",
-                    details: "C'est la partie la plus créative et souvent la plus longue d'un projet. Elle consiste à nettoyer les données, comprendre leurs relations, et créer de nouvelles variables (features) qui aideront le modèle à mieux prédire la cible. Une bonne feature peut avoir plus d'impact qu'un algorithme complexe."
+                create: {
+                    title: "1. Créer ou Ouvrir un Notebook",
+                    details: "Vous pouvez créer un nouveau notebook directement depuis le menu <strong>Fichier > Nouveau notebook</strong>. Vous pouvez également en ouvrir un depuis votre Google Drive, GitHub, ou en téléchargeant un fichier <code>.ipynb</code> depuis votre ordinateur."
                 },
-                modeling: {
-                    title: "2. Modélisation Prédictive",
-                    details: "On choisit un algorithme adapté au problème (classification, régression...). L'algorithme est ensuite entraîné sur une partie des données (le 'training set') pour qu'il apprenne les schémas et les relations entre les 'features' et la cible à prédire."
+                install: {
+                    title: "2. Installer une Bibliothèque",
+                    details: "Bien que Colab pré-installe des dizaines de bibliothèques, vous pourriez avoir besoin d'un paquet spécifique. Pour l'installer, il suffit d'exécuter la commande <code>pip</code> dans une cellule de code, en la préfixant d'un point d'exclamation :<br><pre><code>!pip install nom-de-la-bibliotheque</code></pre>"
                 },
-                evaluation: {
-                    title: "3. Évaluation & Itération",
-                    details: "Le modèle entraîné est testé sur des données qu'il n'a jamais vues (le 'test set') pour mesurer sa performance réelle. On utilise des métriques comme la précision, le rappel ou l'AUC. Si la performance n'est pas satisfaisante, on retourne à l'étape de feature engineering pour améliorer le modèle."
-                }
-            },
-            enjeux: {
-                 gouvernance: {
-                    title: "Gouvernance",
-                    details: "La gouvernance des données assure que les données sont gérées de manière sécurisée, cohérente et conforme. Elle répond aux questions : Qui a le droit de voir quelles données ? Comment la qualité est-elle maintenue ? Comment tracer l'origine et les transformations d'une donnée ? Des outils comme <strong>Unity Catalog</strong> dans Databricks sont essentiels pour cela."
-                },
-                xai: {
-                    title: "Explicabilité (XAI)",
-                    details: "Les modèles d'IA complexes comme les réseaux de neurones ou XGBoost sont souvent des 'boîtes noires'. L'Explicabilité (eXplainable AI) vise à rendre leurs décisions compréhensibles. Des outils comme <strong>SHAP</strong> calculent la contribution de chaque variable à une prédiction, ce qui est crucial pour la confiance, l'audit et la justification des décisions."
-                },
-                ethique: {
-                    title: "Éthique & Biais",
-                    details: "Un modèle peut être techniquement parfait mais éthiquement problématique s'il reproduit ou amplifie des biais existants dans les données. L'analyse des biais consiste à vérifier si le modèle est équitable pour différents groupes de population (par pays, genre, etc.) en mesurant par exemple si les taux d'erreur sont similaires pour tous."
-                },
-                prescriptif: {
-                    title: "Analyse Prescriptive",
-                    details: "C'est le niveau d'analyse le plus avancé. Au-delà de prédire ce qui va se passer, l'analyse prescriptive recommande la meilleure action à entreprendre pour atteindre un objectif, en tenant compte des contraintes. Par exemple, comment allouer un budget d'audit limité pour maximiser la détection de fraude, un problème que des solveurs comme <strong>PuLP</strong> peuvent résoudre."
+                gpu: {
+                    title: "3. Activer un Accélérateur Matériel",
+                    details: "Pour les calculs intensifs, comme l'entraînement de réseaux de neurones, vous pouvez activer un GPU ou un TPU gratuitement. Allez dans le menu <strong>Exécution > Modifier le type d'exécution</strong>, puis sélectionnez 'GPU' ou 'TPU' dans le menu déroulant 'Accélérateur matériel'."
                 }
             }
         };
@@ -337,6 +270,7 @@ fais une presentation en html en utilisant les memes couleur et le logo ataf en 
         document.addEventListener('DOMContentLoaded', () => {
             const setupInteractivePanel = (containerId, contentPanelId, contentDataKey) => {
                 const container = document.getElementById(containerId);
+                if (!container) return;
                 const panel = document.getElementById(contentPanelId);
                 const titleEl = panel.querySelector('h3');
                 const detailsEl = panel.querySelector('p, div');
@@ -358,9 +292,8 @@ fais une presentation en html en utilisant les memes couleur et le logo ataf en 
                 });
             };
             
-            setupInteractivePanel('architecture-timeline', 'content-panel', 'architectures');
+            setupInteractivePanel('anatomie-timeline', 'content-panel', 'anatomie');
             setupInteractivePanel('workflow-steps', 'workflow-content', 'workflow');
-            setupInteractivePanel('enjeux-cards', 'enjeux-content', 'enjeux');
 
             const navLinks = document.querySelectorAll('#navigation .nav-link');
             const sections = document.querySelectorAll('main section');
