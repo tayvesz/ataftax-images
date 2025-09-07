@@ -74,7 +74,7 @@
         <ul class="mt-6 space-y-2" id="navigation">
             <li><a href="#intro" class="nav-link block p-2 rounded-lg font-medium text-gray-700">Introduction à Colab</a></li>
             <li><a href="#anatomie" class="nav-link block p-2 rounded-lg font-medium text-gray-700">Anatomie d'un Notebook</a></li>
-            <li><a href="#drive" class="nav-link block p-2 rounded-lg font-medium text-gray-700">Connecter Google Drive</a></li>
+            <li><a href="#drive" class="nav-link block p-2 rounded-lg font-medium text-gray-700">Gestion des Données</a></li>
             <li><a href="#workflow" class="nav-link block p-2 rounded-lg font-medium text-gray-700">Le Workflow Essentiel</a></li>
             <li><a href="#resume" class="nav-link block p-2 rounded-lg font-medium text-gray-700">Résumé & Objectifs</a></li>
         </ul>
@@ -83,7 +83,6 @@
     <main class="flex-1 md:ml-64 p-6 md:p-10">
         <header class="text-center mb-16">
             <h1 class="text-4xl md:text-5xl font-bold text-dark-green">Démarrer avec Google Colab</h1>
-            <p class="mt-4 text-lg text-gray-600">Votre guide essentiel pour coder dans le cloud</p>
         </header>
 
         <section id="intro" class="mb-16">
@@ -120,23 +119,24 @@
             <p class="mb-8 text-gray-700 leading-relaxed">
                 L'interface de Colab est simple et puissante. Elle est composée de "cellules" qui peuvent contenir soit du code, soit du texte. Cette structure mixte en fait un outil parfait pour le prototypage, la recherche et la documentation. Explorez les composants clés ci-dessous.
             </p>
-            <div id="anatomie-timeline" class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 md:space-x-4 mb-8">
-                <div class="interactive-item p-4 text-center rounded-lg border-2 border-gray-300 w-full md:w-1/4" data-content="code">
+            <div id="anatomie-timeline" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+                <div class="interactive-item p-4 text-center rounded-lg border-2 border-gray-300" data-content="code">
                     <h4 class="font-bold">🐍 Cellule de Code</h4>
                     <span class="text-sm text-gray-500">Pour exécuter Python</span>
                 </div>
-                <span class="text-2xl text-gray-400 hidden md:block">↔️</span>
-                <div class="interactive-item p-4 text-center rounded-lg border-2 border-gray-300 w-full md:w-1/4" data-content="text">
+                <div class="interactive-item p-4 text-center rounded-lg border-2 border-gray-300" data-content="text">
                     <h4 class="font-bold">📝 Cellule de Texte</h4>
                     <span class="text-sm text-gray-500">Pour documenter</span>
                 </div>
-                 <span class="text-2xl text-gray-400 hidden md:block">↔️</span>
-                <div class="interactive-item p-4 text-center rounded-lg border-2 border-gray-300 w-full md:w-1/4" data-content="toolbar">
+                <div class="interactive-item p-4 text-center rounded-lg border-2 border-gray-300" data-content="markdown">
+                    <h4 class="font-bold">✍️ Formatage (Markdown)</h4>
+                    <span class="text-sm text-gray-500">Mettre en forme le texte</span>
+                </div>
+                <div class="interactive-item p-4 text-center rounded-lg border-2 border-gray-300" data-content="toolbar">
                     <h4 class="font-bold">🛠️ Barre d'outils</h4>
                     <span class="text-sm text-gray-500">Les raccourcis</span>
                 </div>
-                 <span class="text-2xl text-gray-400 hidden md:block">↔️</span>
-                <div class="interactive-item p-4 text-center rounded-lg border-2 border-gray-300 w-full md:w-1/4" data-content="sidebar">
+                <div class="interactive-item p-4 text-center rounded-lg border-2 border-gray-300" data-content="sidebar">
                     <h4 class="font-bold">🗂️ Volet Latéral</h4>
                     <span class="text-sm text-gray-500">Fichiers & Outils</span>
                 </div>
@@ -150,13 +150,15 @@
         </section>
 
         <section id="drive" class="mb-16">
-            <h2 class="text-3xl font-bold mb-6 text-dark-green">3. Connecter Google Drive : Votre Espace de Travail</h2>
+            <h2 class="text-3xl font-bold mb-6 text-dark-green">3. Gestion des Données avec Google Drive</h2>
             <p class="mb-8 text-gray-700 leading-relaxed">
-                Les fichiers dans une session Colab sont temporaires. Pour un travail durable, il est essentiel de connecter votre Google Drive. Cela vous permet de sauvegarder vos notebooks, de charger vos jeux de données et d'enregistrer vos résultats de manière permanente.
+                C'est le concept le plus important à maîtriser. Par défaut, les fichiers que vous chargez ou créez dans Colab sont stockés dans une <strong>session temporaire</strong>. Si vous fermez votre navigateur ou que la session expire, <strong>toutes ces données seront perdues</strong>. La solution est d'utiliser Google Drive comme espace de stockage permanent.
             </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <h3 class="text-2xl font-bold text-dark-green mb-4">Comment connecter (monter) votre Drive</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                 <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Méthode 1 : Interface Graphique</h3>
+                    <h4 class="text-xl font-bold text-gray-800 mb-4">Méthode 1 : Interface Graphique</h4>
                     <ul class="list-disc list-inside space-y-2 text-gray-600">
                         <li>Dans le volet latéral gauche, cliquez sur l'icône <strong>Dossier</strong>.</li>
                         <li>Cliquez sur l'icône <strong>"Monter le Drive"</strong>.</li>
@@ -165,12 +167,22 @@
                     </ul>
                 </div>
                 <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
-                    <h3 class="text-2xl font-bold text-custom-green mb-4">Méthode 2 : Code Python</h3>
+                    <h4 class="text-xl font-bold text-custom-green mb-4">Méthode 2 : Code Python</h4>
                      <p class="text-gray-600 mb-4">Exécutez le code suivant dans une cellule pour monter votre Drive :</p>
                      <pre><code>from google.colab import drive
 drive.mount('/content/drive')</code></pre>
                      <p class="text-gray-600 mt-4">Suivez le lien, copiez le code d'autorisation et collez-le dans le champ de saisie.</p>
                 </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-dark-green mb-4">Bonnes Pratiques pour la Persistance des Données</h3>
+            <div class="bg-light-green p-8 rounded-xl border-l-4 border-custom-green">
+                 <ul class="list-disc list-inside space-y-3 text-dark-green">
+                     <li><strong class="font-semibold">Utilisez Google Drive pour tout stocker :</strong> Vos notebooks, vos jeux de données, vos modèles entraînés. C'est votre disque dur permanent.</li>
+                     <li><strong class="font-semibold">Montez votre Drive au début de chaque session :</strong> Faites-en la première étape de votre notebook pour accéder facilement à vos fichiers.</li>
+                     <li><strong class="font-semibold">Lisez et écrivez directement sur le Drive :</strong> Une fois monté, utilisez des chemins comme <code>/content/drive/My Drive/mon_fichier.csv</code> pour lire et sauvegarder votre travail.</li>
+                     <li><strong class="font-semibold">Sauvegardez vos notebooks régulièrement :</strong> Bien que la sauvegarde soit automatique sur Drive, un <code>Ctrl+S</code> régulier est une bonne habitude pour s'assurer que la dernière version est bien enregistrée.</li>
+                 </ul>
             </div>
         </section>
 
@@ -218,8 +230,8 @@ drive.mount('/content/drive')</code></pre>
                  <h3 class="text-2xl font-bold text-dark-green mb-4">Ce que nous avons vu :</h3>
                  <ul class="list-disc list-inside space-y-2 text-dark-green">
                      <li>Les <strong class="font-semibold">avantages clés</strong> de Colab : gratuit, sans configuration et collaboratif.</li>
-                     <li>La structure d'un notebook : un mélange de <strong class="font-semibold">cellules de code et de texte</strong>.</li>
-                     <li>Comment connecter <strong class="font-semibold">Google Drive</strong> pour un travail persistant.</li>
+                     <li>La structure d'un notebook : un mélange de <strong class="font-semibold">cellules de code et de texte formaté</strong>.</li>
+                     <li>L'importance cruciale de <strong class="font-semibold">Google Drive</strong> pour assurer la persistance des données.</li>
                      <li>Les étapes de base : installer des paquets avec <strong class="font-semibold">`!pip`</strong> et activer les <strong class="font-semibold">GPU</strong>.</li>
                  </ul>
                  <h3 class="text-2xl font-bold text-dark-green mt-6 mb-4">Votre Objectif :</h3>
@@ -241,6 +253,10 @@ drive.mount('/content/drive')</code></pre>
                 text: {
                     title: "📝 La Cellule de Texte",
                     details: "Elle vous permet de documenter votre travail en utilisant la syntaxe <strong>Markdown</strong>. Vous pouvez créer des titres, des listes, mettre du texte en gras, insérer des images et des liens. C'est essentiel pour créer des rapports clairs et reproductibles."
+                },
+                markdown: {
+                    title: "✍️ Le Formatage avec Markdown",
+                    details: "La cellule de texte utilise Markdown, un langage simple pour formater du texte. C'est ce qui rend les notebooks si lisibles.<br><br><strong>Exemples courants :</strong><br>Pour un titre de niveau 1 :<pre><code># Mon Titre Principal</code></pre>Pour un titre de niveau 2 :<pre><code>## Mon Sous-Titre</code></pre>Pour mettre du texte en gras :<pre><code>Ceci est du texte **important**.</code></pre>"
                 },
                 toolbar: {
                     title: "🛠️ La Barre d'outils",
