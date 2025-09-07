@@ -203,7 +203,7 @@ drive.mount('/content/drive')</code></pre>
                     <div class="interactive-item p-4 rounded-lg border-2 border-gray-300 flex items-center" data-content="install">
                          <span class="text-3xl mr-4">📦</span>
                         <div>
-                            <h4 class="font-bold">2. Installer une Bibliothèque</h4>
+                            <h4 class="font-bold">2. Gérer les Bibliothèques</h4>
                             <p class="text-sm text-gray-500">Avec la commande `!pip`.</p>
                         </div>
                     </div>
@@ -256,7 +256,7 @@ drive.mount('/content/drive')</code></pre>
                 },
                 markdown: {
                     title: "✍️ Le Formatage avec Markdown",
-                    details: "La cellule de texte utilise Markdown, un langage simple pour formater du texte. C'est ce qui rend les notebooks si lisibles.<br><br><strong>Exemples courants :</strong><br>Pour un titre de niveau 1 :<pre><code># Mon Titre Principal</code></pre>Pour un titre de niveau 2 :<pre><code>## Mon Sous-Titre</code></pre>Pour mettre du texte en gras :<pre><code>Ceci est du texte **important**.</code></pre>"
+                    details: "La cellule de texte utilise Markdown, un langage de balisage léger pour formater le texte. C'est ce qui rend les notebooks si lisibles et bien structurés.<br><br><strong>Exemples courants :</strong><br>Titres :<pre><code># Titre de niveau 1\n## Titre de niveau 2\n### Titre de niveau 3</code></pre>Mise en forme du texte :<pre><code>Ceci est du texte **en gras**.\nCeci est du texte *en italique*.</code></pre>Listes à puces :<pre><code>- Premier élément\n- Deuxième élément\n  - Sous-élément</code></pre>Listes numérotées :<pre><code>1. Première étape\n2. Deuxième étape</code></pre>Liens :<pre><code>[Visitez le site de l'ATAF](https://www.ataftax.org/)</code></pre>"
                 },
                 toolbar: {
                     title: "🛠️ La Barre d'outils",
@@ -273,8 +273,8 @@ drive.mount('/content/drive')</code></pre>
                     details: "Vous pouvez créer un nouveau notebook directement depuis le menu <strong>Fichier > Nouveau notebook</strong>. Vous pouvez également en ouvrir un depuis votre Google Drive, GitHub, ou en téléchargeant un fichier <code>.ipynb</code> depuis votre ordinateur."
                 },
                 install: {
-                    title: "2. Installer une Bibliothèque",
-                    details: "Bien que Colab pré-installe des dizaines de bibliothèques, vous pourriez avoir besoin d'un paquet spécifique. Pour l'installer, il suffit d'exécuter la commande <code>pip</code> dans une cellule de code, en la préfixant d'un point d'exclamation :<br><pre><code>!pip install nom-de-la-bibliotheque</code></pre>"
+                    title: "2. Gérer les Bibliothèques Python",
+                    details: "<strong>Bibliothèques pré-installées :</strong> Vous n'avez PAS besoin d'installer les outils les plus courants de la data science, car ils sont déjà inclus ! Cela comprend :<br><ul><li class='ml-4 list-disc'>Pandas</li><li class='ml-4 list-disc'>NumPy</li><li class='ml-4 list-disc'>Matplotlib & Seaborn</li><li class='ml-4 list-disc'>Scikit-learn</li><li class='ml-4 list-disc'>TensorFlow & PyTorch</li></ul><strong>Installer d'autres bibliothèques :</strong> Pour tout ce qui n'est pas inclus, utilisez la commande <code>!pip install</code> dans une cellule de code.<br><br><strong>Exemples :</strong><br>Installation simple :<pre><code>!pip install beautifulsoup4</code></pre>Installer une version spécifique :<pre><code>!pip install pandas==1.5.3</code></pre>Mettre à jour une bibliothèque en silence :<pre><code>!pip install -qU scikit-learn</code></pre>"
                 },
                 gpu: {
                     title: "3. Activer un Accélérateur Matériel",
